@@ -89,22 +89,58 @@
             border-bottom-color: #B8860B;
             outline: none;
         }
+
+        .portfolio-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
     </style>
 </head>
 
 <body class="font-body bg-white bg-opacity-90 bg-cover bg-fixed bg-no-repeat">
     <header class="sticky top-0 z-50 bg-none bg-opacity-90 shadow-sm ">
-        <nav class="container mx-auto px-4 flex justify-between items-center ">
+        <nav class="container mx-auto px-20 flex justify-between items-center ">
             <div class="flex items-center">
-                <img src="images/logo-6.png" alt="delight captures" class="p-3" height="50" width="100"
-                    style="margin-left: 50px;">
+                <img src="images/logo-6.png" alt="delight captures" class="p-3" height="50" width="100">
             </div>
-            <div class="hidden md:flex space-x-8">
+            <div class="hidden md:flex space-x-8 ">
                 <a href="#home" class="text-gold font-semibold hover:text-gold-dark transition-colors">Home</a>
+                <a href="#about" class="text-gray-800 hover:text-gold-dark transition-colors">About</a>
                 <a href="#services" class="text-gray-800 hover:text-gold-dark transition-colors">Services</a>
                 <a href="#portfolio" class="text-gray-800 hover:text-gold-dark transition-colors">Portfolio</a>
-                <a href="#about" class="text-gray-800 hover:text-gold-dark transition-colors">About</a>
-                <a href="#contact" class="text-gray-800 hover:text-gold-dark transition-colors">Contact</a>
+                <a href="./contact.html" class="text-gray-800 hover:text-gold-dark transition-colors">Contact</a>
             </div>
             <button class="md:hidden text-gold">
                 <i class="fas fa-bars text-2xl"></i>
@@ -122,7 +158,7 @@
 
                 <p class="text-xl text-dark mb-8 max-w-2xl mx-auto">Professional photography services that turn your
                     special moments into timeless memories</p>
-                <a href="#contact"
+                <a href="#book-session"
                     class="bg-gold hover:bg-gold-dark text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg border-2 border-gold">Book
                     a Session</a>
             </div>
@@ -226,33 +262,133 @@
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="py-16 bg-opacity-90">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-gold mb-4">Our Portfolio</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">A glimpse of our recent work and happy clients</p>
+        <section id="portfolio" class="py-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="text-center mb-16">
+                    <h2 class="playfair text-3xl md:text-4xl lg:text-5xl font-bold mb-4 gold-text">Portfolio</h2>
+                    <p class="text-lg max-w-2xl mx-auto">A curated selection of my finest work across various
+                        photography
+                        genres.</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <img src="https://picsum.photos/400/600?random=7" alt="Wedding portfolio sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                    <img src="https://picsum.photos/400/600?random=8" alt="Kids photography sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                    <img src="https://picsum.photos/400/600?random=9" alt="Travel photography sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                    <img src="https://picsum.photos/400/600?random=10" alt="Birthday party sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                    <img src="https://picsum.photos/400/600?random=11" alt="Pre-wedding sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                    <img src="https://picsum.photos/400/600?random=12" alt="Family portrait sample"
-                        class="w-full h-auto rounded-lg shadow-md" loading="lazy">
+                <!-- Portfolio Filter -->
+                <div class="flex justify-center mb-12">
+                    <div class="inline-flex rounded-md shadow-sm w-full max-w-lg" role="group">
+                        <button type="button"
+                            class="filter-btn px-2 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm font-medium rounded-l-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gold-500 focus:text-gold-700 w-full sm:w-auto"
+                            data-filter="all">
+                            All
+                        </button>
+                        <button type="button"
+                            class="filter-btn px-2 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm font-medium border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gold-500 focus:text-gold-700 w-full sm:w-auto"
+                            data-filter="wedding">
+                            Weddings
+                        </button>
+                        <button type="button"
+                            class="filter-btn px-2 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gold-500 focus:text-gold-700 w-full sm:w-auto"
+                            data-filter="portrait">
+                            Portraits
+                        </button>
+                        <button type="button"
+                            class="filter-btn px-2 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm font-medium border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gold-500 focus:text-gold-700 w-full sm:w-auto"
+                            data-filter="fashion">
+                            Fashion
+                        </button>
+                        <button type="button"
+                            class="filter-btn px-2 py-1 text-xs sm:px-6 sm:py-2 sm:text-sm font-medium rounded-r-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gold-500 focus:text-gold-700 w-full sm:w-auto"
+                            data-filter="commercial">
+                            Commercial
+                        </button>
+                    </div>
                 </div>
 
-                <div class="text-center mt-8">
+                <!-- Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Portfolio Item 1 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg animate-3d"
+                        data-category="wedding">
+                        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                            alt="Wedding Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Elegant Wedding</h3>
+                            <p class="text-white text-center px-4">Capturing the magic of your special day</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 2 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg" data-category="portrait">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                            alt="Portrait Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Executive Portrait</h3>
+                            <p class="text-white text-center px-4">Professional headshots that stand out</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 3 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg" data-category="fashion">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                            alt="Fashion Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Fashion Editorial</h3>
+                            <p class="text-white text-center px-4">High-end fashion photography</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 4 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg"
+                        data-category="commercial">
+                        <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                            alt="Commercial Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Product Showcase</h3>
+                            <p class="text-white text-center px-4">Elevating your brand with stunning visuals</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 5 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg" data-category="wedding">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                            alt="Wedding Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Romantic Moments</h3>
+                            <p class="text-white text-center px-4">Capturing love in its purest form</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 6 -->
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg" data-category="portrait">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                            alt="Portrait Photography" class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white text-xl font-bold mb-2">Lifestyle Portrait</h3>
+                            <p class="text-white text-center px-4">Authentic moments, beautifully captured</p>
+                            <a href="#"
+                                class="mt-4 px-4 py-2 bg-white text-black rounded-full font-medium hover:bg-opacity-90 transition">View
+                                More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
                     <a href="#"
-                        class="inline-block bg-gold hover:bg-gold-dark text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg border-2 border-gold">
-                        View Full Portfolio
-                    </a>
+                        class="gold-bg text-black font-semibold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300 inline-block">View
+                        Full Portfolio</a>
                 </div>
             </div>
         </section>
@@ -261,7 +397,7 @@
         <section id="about" class="py-16 bg-opacity-90">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col lg:flex-row items-center">
-                    <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12 bg-gold m-4">
+                    <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12 bg-gold bg-opacity-60 m-4">
                         <img src="images/DELIGHT-FINAL-LOGO.png" alt="Photographer at work"
                             class="w-full rounded-lg shadow-xl" loading="lazy">
                     </div>
@@ -374,237 +510,141 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-16  bg-opacity-90">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-heading font-bold text-gold mb-4">Get In Touch</h2>
-                        <p class="text-gray-600 max-w-2xl mx-auto">Ready to book a session or have questions? Contact us
-                            today!</p>
-                    </div>
 
-                    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
-                        <div class="md:flex">
-                            <div class="md:w-1/2 bg-gold p-8 text-white">
-                                <h3 class="text-2xl font-heading font-bold mb-6">Contact Information</h3>
-                                <div class="mb-6">
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-map-marker-alt mr-4 text-xl"></i>
-                                        <span>123 Photography Ave, Creative City, CC 12345</span>
-                                    </div>
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-phone-alt mr-4 text-xl"></i>
-                                        <span>+1 (555) 123-4567</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-envelope mr-4 text-xl"></i>
-                                        <span>info@delightcaptures.com</span>
-                                    </div>
-                                </div>
-                                <h3 class="text-2xl font-heading font-bold mb-6">Follow Us</h3>
-                                <div class="flex space-x-4">
-                                    <a href="#" class="text-white hover:text-gray-200 text-2xl"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="text-white hover:text-gray-200 text-2xl"><i
-                                            class="fab fa-instagram"></i></a>
-                                    <a href="#" class="text-white hover:text-gray-200 text-2xl"><i
-                                            class="fab fa-pinterest-p"></i></a>
-                                    <a href="#" class="text-white hover:text-gray-200 text-2xl"><i
-                                            class="fab fa-twitter"></i></a>
-                                </div>
-                            </div>
-                            <div class="md:w-1/2 p-8">
-                                <form>
-                                    <div class="mb-4">
-                                        <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
-                                        <input type="text" id="name"
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="email" class="block text-gray-700 font-medium mb-2">Email
-                                            Address</label>
-                                        <input type="email" id="email"
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone
-                                            Number</label>
-                                        <input type="tel" id="phone"
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="service" class="block text-gray-700 font-medium mb-2">Service
-                                            Interested In</label>
-                                        <select id="service"
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold">
-                                            <option value="">Select a service</option>
-                                            <option value="wedding">Wedding Photography</option>
-                                            <option value="pre-wedding">Pre-Wedding Shoot</option>
-                                            <option value="kids">Kids Photography</option>
-                                            <option value="birthday">Birthday Parties</option>
-                                            <option value="travel">Travel Photography</option>
-                                            <option value="family">Family Portraits</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="message" class="block text-gray-700 font-medium mb-2">Your
-                                            Message</label>
-                                        <textarea id="message" rows="4"
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
-                                    </div>
-                                    <button type="submit"
-                                        class="w-full bg-gold hover:bg-gold-dark text-white font-medium py-3 px-6 rounded-md transition-colors">
-                                        Send Message
-                                    </button>
-                                </form>
-                            </div>
+
+
+
+        <!-- Modern Booking Section (Merged) -->
+        <section id="book-session" class="py-10 px-2 ms-2 me-2 sm:py-10 sm:px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-6 sm:py-3">
+                <h2 class="title-font text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Book Your Session</h2>
+                <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                    Capture your precious moments with our professional photography services. Select a date and
+                    provide your
+                    details to book your session.
+                </p>
+            </div>
+            <!-- Remove excessive padding here -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+                <!-- Calendar Section -->
+                <div
+                    class="bg-white/30 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 flex flex-col justify-between mb-6 lg:mb-0">
+                    <h3 class="text-xl sm:text-2xl font-heading font-bold text-gold mb-4 text-center">Select Date
+                    </h3>
+                    <!-- Calendar navigation and grid here -->
+                    <div class="flex justify-between items-center mb-4">
+                        <button id="modernPrevMonth" class="text-gold hover:text-gold-dark">
+                            <i class="fas fa-chevron-left text-xl"></i>
+                        </button>
+                        <h4 id="modernCurrentMonthYear" class="text-lg font-semibold text-gray-800"></h4>
+                        <button id="modernNextMonth" class="text-gold hover:text-gold-dark">
+                            <i class="fas fa-chevron-right text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="modernCalendar" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
+                    <div class="mt-4 flex flex-col sm:flex-row justify-center gap-2 sm:space-x-6 text-xs sm:text-sm">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-gold rounded-full mr-1"></div>
+                            <span class="text-gray-600">Selected</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-gray-200 rounded-full mr-1"></div>
+                            <span class="text-gray-600">Available</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-gray-100 rounded-full mr-1"></div>
+                            <span class="text-gray-600">Booked</span>
                         </div>
                     </div>
+                    <!-- <div class="mt-4">
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Preferred Time
+                            *</label>
+                        <div id="modernTimeSlots" class="grid grid-cols-2 gap-2"></div>
+                    </div> -->
+                </div>
+
+                <!-- Booking Form Section -->
+                <div class="booking-form bg-white/90 rounded-xl shadow-xl p-4 sm:p-6">
+                    <h3 class="text-xl sm:text-2xl font-heading font-bold text-gold mb-4">Session Details</h3>
+                    <form id="modernBookingForm" class="space-y-4">
+                        <div class="bg-gold/10 rounded-lg p-2 sm:p-3">
+                            <p class="text-xs text-gray-600">Selected Date:</p>
+                            <p id="modernSelectedDateDisplay" class="text-base font-semibold text-gold">Please
+                                select a date</p>
+                        </div>
+                        <div>
+                            <label for="modernServiceType"
+                                class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Service Type
+                                *</label>
+                            <select id="modernServiceType" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:border-transparent text-sm">
+                                <option value="">Choose a service...</option>
+                                <option value="wedding">Wedding Photography</option>
+                                <option value="pre-wedding">Pre-Wedding Shoot</option>
+                                <option value="kids">Kids Photography</option>
+                                <option value="birthday">Birthday Parties</option>
+                                <option value="travel">Travel Photography</option>
+                                <option value="family">Family Portraits</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div>
+                                <label for="modernFullName"
+                                    class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Full
+                                    Name *</label>
+                                <input type="text" id="modernFullName" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:border-transparent text-sm">
+                            </div>
+                            <div>
+                                <label for="modernEmail"
+                                    class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Email
+                                    *</label>
+                                <input type="email" id="modernEmail" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:border-transparent text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="modernPhone"
+                                class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Phone
+                                Number *</label>
+                            <input type="tel" id="modernPhone" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:border-transparent text-sm">
+                        </div>
+                        <div>
+                            <label for="modernNotes"
+                                class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Special
+                                Requests</label>
+                            <textarea id="modernNotes" rows="2"
+                                class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:border-transparent text-sm"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-gold hover:bg-gold-dark text-white font-bold py-2 rounded transition-colors duration-300 shadow-lg text-base">
+                            <i class="fas fa-calendar-check mr-2"></i>
+                            Confirm Booking
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
-        <section class="py-16 px-16 sm:px-6 lg:px-8 max-w-7xl mx-auto ">
-            <div class="text-center mb-8">
-                <h2 class="title-font text-4xl font-bold text-gray-900 mb-4">Book Your Session</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Capture your precious moments with our professional
-                    photography services. Select a date and provide your details to book your session.</p>
-            </div>
 
 
-
-            <!-- Modern Booking Section (Merged) -->
-            <section class="py-16 px-4">
-                <div class="container mx-auto max-w-7xl">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <!-- Calendar Section -->
-                        <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8">
-                            <h3 class="text-2xl font-heading font-bold text-gold mb-6 text-center">Select Date</h3>
-                            <div class="flex justify-between items-center mb-6">
-                                <button id="modernPrevMonth" class="text-gold hover:text-gold-dark transition-colors">
-                                    <i class="fas fa-chevron-left text-xl"></i>
-                                </button>
-                                <h4 id="modernCurrentMonthYear" class="text-xl font-semibold text-gray-800"></h4>
-                                <button id="modernNextMonth" class="text-gold hover:text-gold-dark transition-colors">
-                                    <i class="fas fa-chevron-right text-xl"></i>
-                                </button>
-                            </div>
-                            <div id="modernCalendar" class="grid grid-cols-7 gap-2">
-                                <!-- Calendar will be generated by JavaScript -->
-                            </div>
-                            <div class="mt-6 flex justify-center space-x-6 text-sm">
-                                <div class="flex items-center">
-                                    <div class="w-4 h-4 bg-gold rounded-full mr-2"></div>
-                                    <span class="text-gray-600">Selected</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="w-4 h-4 bg-gray-200 rounded-full mr-2"></div>
-                                    <span class="text-gray-600">Available</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="w-4 h-4 bg-gray-100 rounded-full mr-2"></div>
-                                    <span class="text-gray-600">Booked</span>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 my-2">Preferred Time *</label>
-                                <div id="modernTimeSlots" class="grid grid-cols-2 gap-3">
-                                    <!-- Time slots will be generated -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Booking Details Section -->
-                        <div class="booking-form rounded-2xl shadow-2xl p-8">
-                            <h3 class="text-2xl font-heading font-bold text-gold mb-6">Session Details</h3>
-                            <form id="modernBookingForm" class="space-y-6">
-                                <div class="bg-gold/10 rounded-lg p-4">
-                                    <p class="text-sm text-gray-600">Selected Date:</p>
-                                    <p id="modernSelectedDateDisplay" class="text-lg font-semibold text-gold">Please
-                                        select a date</p>
-                                </div>
-                                <div>
-                                    <label for="modernServiceType"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Service Type *</label>
-                                    <select id="modernServiceType" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
-                                        <option value="">Choose a service...</option>
-                                        <option value="wedding">Wedding Photography</option>
-                                        <option value="pre-wedding">Pre-Wedding Shoot</option>
-                                        <option value="kids">Kids Photography</option>
-                                        <option value="birthday">Birthday Parties</option>
-                                        <option value="travel">Travel Photography</option>
-                                        <option value="family">Family Portraits</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label for="modernDuration"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Session Duration *</label>
-                                    <select id="modernDuration" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
-                                        <option value="">Select duration...</option>
-                                        <option value="1">1 Hour</option>
-                                        <option value="2">2 Hours</option>
-                                        <option value="3">3 Hours</option>
-                                        <option value="full">Full Day</option>
-                                    </select>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="modernFullName"
-                                            class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                                        <input type="text" id="modernFullName" required
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label for="modernEmail"
-                                            class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                        <input type="email" id="modernEmail" required
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="modernPhone" class="block text-sm font-medium text-gray-700 mb-2">Phone
-                                        Number *</label>
-                                    <input type="tel" id="modernPhone" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent">
-                                </div>
-                                <div>
-                                    <label for="modernNotes"
-                                        class="block text-sm font-medium text-gray-700 mb-2">Special Requests</label>
-                                    <textarea id="modernNotes" rows="3"
-                                        placeholder="Any special requirements or notes..."
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"></textarea>
-                                </div>
-
-                                <button type="submit"
-                                    class="w-full bg-gold hover:bg-gold-dark text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 shadow-lg">
-                                    <i class="fas fa-calendar-check mr-2"></i>
-                                    Confirm Booking
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+        <!-- Success Modal for Modern Booking Section -->
+        <div id="modernSuccessModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
                 </div>
-            </section>
-
-            <!-- Success Modal for Modern Booking Section -->
-            <div id="modernSuccessModal"
-                class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-                <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-check text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-gray-800 mb-2">Booking Confirmed!</h3>
-                    <p class="text-gray-600 mb-6">Thank you for booking with Delight Captures. We'll send you a
-                        confirmation email shortly.</p>
-                    <button onclick="closeModernModal()"
-                        class="bg-gold hover:bg-gold-dark text-white font-bold py-2 px-6 rounded-lg transition-colors">
-                        Great!
-                    </button>
-                </div>
+                <h3 class="text-2xl font-heading font-bold text-gray-800 mb-2">Booking Confirmed!</h3>
+                <p class="text-gray-600 mb-6">Thank you for booking with Delight Captures. We'll send you a
+                    confirmation email shortly.</p>
+                <button onclick="closeModernModal()"
+                    class="bg-gold hover:bg-gold-dark text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                    Great!
+                </button>
             </div>
+        </div>
 
     </main>
 
@@ -670,133 +710,127 @@
     </style>
 
     <script>
-            // Modern Booking Section Script
-            (function () {
-                let modernCurrentDate = new Date();
-                let modernSelectedDate = null;
-                let modernSelectedTime = null;
-                const modernPricing = {
-                    wedding: 800,
-                    'pre-wedding': 400,
-                    kids: 250,
-                    birthday: 300,
-                    travel: 500,
-                    family: 350
-                };
-                function initModernCalendar() {
-                    renderModernCalendar();
-                    document.getElementById('modernPrevMonth').addEventListener('click', () => changeModernMonth(-1));
-                    document.getElementById('modernNextMonth').addEventListener('click', () => changeModernMonth(1));
-                }
-                function renderModernCalendar() {
-                    const year = modernCurrentDate.getFullYear();
-                    const month = modernCurrentDate.getMonth();
-                    const firstDay = new Date(year, month, 1).getDay();
-                    const daysInMonth = new Date(year, month + 1, 0).getDate();
-                    document.getElementById('modernCurrentMonthYear').textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-                    const calendar = document.getElementById('modernCalendar');
-                    calendar.innerHTML = '';
-                    // Weekday headers
-                    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                    weekdays.forEach(day => {
-                        const dayHeader = document.createElement('div');
-                        dayHeader.className = 'text-center font-semibold text-gray-600 py-2';
-                        dayHeader.textContent = day;
-                        calendar.appendChild(dayHeader);
-                    });
-                    // Empty cells
-                    for (let i = 0; i < firstDay; i++) {
-                        const emptyCell = document.createElement('div');
-                        calendar.appendChild(emptyCell);
+        // Portfolio filter functionality from index2.html
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('gold-bg', 'text-black'));
+                filterButtons.forEach(btn => btn.classList.add('bg-white', 'text-gray-700'));
+
+                // Add active class to clicked button
+                button.classList.remove('bg-white', 'text-gray-700');
+                button.classList.add('gold-bg', 'text-black');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
                     }
-                    // Calendar days
-                    for (let day = 1; day <= daysInMonth; day++) {
-                        const dayDate = new Date(year, month, day);
-                        const dayDiv = document.createElement('div');
-                        dayDiv.className = 'calendar-day bg-gray-100 hover:bg-gray-200 rounded-lg text-center py-3 cursor-pointer';
-                        // Disable past dates
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        if (dayDate < today) {
-                            dayDiv.classList.add('disabled');
-                        } else {
-                            dayDiv.addEventListener('click', () => selectModernDate(dayDate, dayDiv));
-                        }
-                        dayDiv.textContent = day;
-                        calendar.appendChild(dayDiv);
-                    }
-                }
-                function changeModernMonth(direction) {
-                    modernCurrentDate.setMonth(modernCurrentDate.getMonth() + direction);
-                    renderModernCalendar();
-                }
-                function selectModernDate(date, element) {
-                    modernSelectedDate = date;
-                    const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                    document.getElementById('modernSelectedDateDisplay').textContent = formattedDate;
-                    // Update calendar UI
-                    document.querySelectorAll('#modernCalendar .calendar-day').forEach(day => {
-                        day.classList.remove('selected');
-                    });
-                    element.classList.add('selected');
-                    // Generate time slots
-                    generateModernTimeSlots();
-                }
-                function generateModernTimeSlots() {
-                    const timeSlots = document.getElementById('modernTimeSlots');
-                    timeSlots.innerHTML = '';
-                    const slots = ['9:00 AM', '10:30 AM', '12:00 PM', '1:30 PM', '3:00 PM', '4:30 PM', '6:00 PM'];
-                    slots.forEach(time => {
-                        const slot = document.createElement('button');
-                        slot.type = 'button';
-                        slot.className = 'time-slot bg-gray-100 hover:bg-gold hover:text-white text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-300';
-                        slot.textContent = time;
-                        slot.addEventListener('click', () => selectModernTime(time, slot));
-                        timeSlots.appendChild(slot);
-                    });
-                }
-                function selectModernTime(time, element) {
-                    modernSelectedTime = time;
-                    document.querySelectorAll('#modernTimeSlots .time-slot').forEach(slot => {
-                        slot.classList.remove('bg-gold', 'text-white');
-                        slot.classList.add('bg-gray-100', 'text-gray-700');
-                    });
-                    element.classList.remove('bg-gray-100', 'text-gray-700');
-                    element.classList.add('bg-gold', 'text-white');
-                }
-                document.getElementById('modernServiceType').addEventListener('change', updateModernPrice);
-                document.getElementById('modernDuration').addEventListener('change', updateModernPrice);
-                function updateModernPrice() {
-                    const service = document.getElementById('modernServiceType').value;
-                    const duration = document.getElementById('modernDuration').value;
-                    if (service && duration) {
-                        let basePrice = modernPricing[service];
-                        let finalPrice = basePrice;
-                        if (duration === '2') finalPrice = basePrice * 1.8;
-                        else if (duration === '3') finalPrice = basePrice * 2.5;
-                        else if (duration === 'full') finalPrice = basePrice * 4;
-                        document.getElementById('modernEstimatedPrice').textContent = `$${finalPrice}`;
-                    }
-                }
-                document.getElementById('modernBookingForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    if (!modernSelectedDate || !modernSelectedTime) {
-                        alert('Please select a date and time');
-                        return;
-                    }
-                    document.getElementById('modernSuccessModal').style.display = 'flex';
                 });
-                window.closeModernModal = function () {
-                    document.getElementById('modernSuccessModal').style.display = 'none';
-                    document.getElementById('modernBookingForm').reset();
-                    modernSelectedDate = null;
-                    modernSelectedTime = null;
-                    document.getElementById('modernSelectedDateDisplay').textContent = 'Please select a date';
-                    document.getElementById('modernEstimatedPrice').textContent = '$0';
+            });
+        });
+
+        // Modern Booking Section Script
+        (function () {
+            let modernCurrentDate = new Date();
+            let modernSelectedDate = null;
+            const modernPricing = {
+                wedding: 800,
+                'pre-wedding': 400,
+                kids: 250,
+                birthday: 300,
+                travel: 500,
+                family: 350
+            };
+            function initModernCalendar() {
+                renderModernCalendar();
+                document.getElementById('modernPrevMonth').addEventListener('click', () => changeModernMonth(-1));
+                document.getElementById('modernNextMonth').addEventListener('click', () => changeModernMonth(1));
+            }
+            function renderModernCalendar() {
+                const year = modernCurrentDate.getFullYear();
+                const month = modernCurrentDate.getMonth();
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                document.getElementById('modernCurrentMonthYear').textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                const calendar = document.getElementById('modernCalendar');
+                calendar.innerHTML = '';
+                // Weekday headers
+                const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                weekdays.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'text-center font-semibold text-gray-600 py-2';
+                    dayHeader.textContent = day;
+                    calendar.appendChild(dayHeader);
+                });
+                // Empty cells
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    calendar.appendChild(emptyCell);
                 }
-                // Initialize
-                initModernCalendar();
-            })();
+                // Calendar days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayDate = new Date(year, month, day);
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'calendar-day bg-gold bg-opacity-60 hover:bg-gray-200 rounded-lg text-center py-3 cursor-pointer border border-dark';
+                    // Disable past dates
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (dayDate < today) {
+                        dayDiv.classList.add('disabled');
+                    } else {
+                        dayDiv.addEventListener('click', () => selectModernDate(dayDate, dayDiv));
+                    }
+                    dayDiv.textContent = day;
+                    calendar.appendChild(dayDiv);
+                }
+            }
+            function changeModernMonth(direction) {
+                modernCurrentDate.setMonth(modernCurrentDate.getMonth() + direction);
+                renderModernCalendar();
+            }
+            function selectModernDate(date, element) {
+                modernSelectedDate = date;
+                const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                document.getElementById('modernSelectedDateDisplay').textContent = formattedDate;
+                // Update calendar UI
+                document.querySelectorAll('#modernCalendar .calendar-day').forEach(day => {
+                    day.classList.remove('selected');
+                });
+                element.classList.add('selected');
+            }
+            document.getElementById('modernServiceType').addEventListener('change', updateModernPrice);
+            function updateModernPrice() {
+                const service = document.getElementById('modernServiceType').value;
+                if (service) {
+                    let basePrice = modernPricing[service];
+                    document.getElementById('modernEstimatedPrice').textContent = `$${basePrice}`;
+                }
+            }
+            document.getElementById('modernBookingForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!modernSelectedDate) {
+                    alert('Please select a date');
+                    return;
+                }
+                document.getElementById('modernSuccessModal').style.display = 'flex';
+            });
+            window.closeModernModal = function () {
+                document.getElementById('modernSuccessModal').style.display = 'none';
+                document.getElementById('modernBookingForm').reset();
+                modernSelectedDate = null;
+                document.getElementById('modernSelectedDateDisplay').textContent = 'Please select a date';
+                document.getElementById('modernEstimatedPrice').textContent = '$0';
+            }
+            // Initialize
+            initModernCalendar();
+        })();
     </script>
     <script>
         window.addEventListener('scroll', function () {
