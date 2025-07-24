@@ -131,21 +131,71 @@
 
 <body class="font-body bg-white bg-opacity-90 bg-cover bg-fixed bg-no-repeat">
     <header class="sticky top-0 z-50 bg-none bg-opacity-90 shadow-sm ">
-        <nav class="container mx-auto px-20 flex justify-between items-center ">
+        <nav class="container mx-auto flex justify-between items-center py-2" style="padding: 0 5%;">
             <div class="flex items-center">
                 <img src="images/logo-6.png" alt="delight captures" class="p-3" height="50" width="100">
             </div>
-            <div class="hidden md:flex space-x-8 ">
+            <!-- Desktop Links -->
+            <div id="navbarLinks" class="hidden md:flex space-x-8">
                 <a href="#home" class="text-gold font-semibold hover:text-gold-dark transition-colors">Home</a>
                 <a href="#about" class="text-gray-800 hover:text-gold-dark transition-colors">About</a>
                 <a href="#services" class="text-gray-800 hover:text-gold-dark transition-colors">Services</a>
                 <a href="#portfolio" class="text-gray-800 hover:text-gold-dark transition-colors">Portfolio</a>
                 <a href="./contact.html" class="text-gray-800 hover:text-gold-dark transition-colors">Contact</a>
             </div>
-            <button class="md:hidden text-gold">
+            <!-- Hamburger -->
+            <button id="navbarToggle" class="md:hidden text-gold focus:outline-none">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
+
+            <!-- Overlay & mobile menu -->
+            <div id="mobileOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+            <div id="mobileMenu"
+                class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-6 transform translate-x-full transition-transform duration-300">
+                <button id="closeMenu" class="block ml-auto mb-6 text-gold text-2xl focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+                <nav class="flex flex-col space-y-6">
+                    <a href="#home" class="text-gold font-semibold hover:text-gold-dark transition-colors">Home</a>
+                    <a href="#about" class="text-gray-800 hover:text-gold-dark transition-colors">About</a>
+                    <a href="#services" class="text-gray-800 hover:text-gold-dark transition-colors">Services</a>
+                    <a href="#portfolio" class="text-gray-800 hover:text-gold-dark transition-colors">Portfolio</a>
+                    <a href="./contact.html" class="text-gray-800 hover:text-gold-dark transition-colors">Contact</a>
+                </nav>
+            </div>
         </nav>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var navbarToggle = document.getElementById('navbarToggle');
+                var mobileMenu = document.getElementById('mobileMenu');
+                var mobileOverlay = document.getElementById('mobileOverlay');
+                var closeMenu = document.getElementById('closeMenu');
+
+                // Open mobile menu
+                navbarToggle.addEventListener('click', function () {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileOverlay.classList.remove('hidden');
+                });
+
+                // Close mobile menu
+                closeMenu.addEventListener('click', closeNav);
+                mobileOverlay.addEventListener('click', closeNav);
+
+                function closeNav() {
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileOverlay.classList.add('hidden');
+                }
+
+                // Hide mobile menu on resize
+                window.addEventListener('resize', function () {
+                    if (window.innerWidth >= 768) {
+                        closeNav();
+                    }
+                });
+            });
+        </script>
+
     </header>
 
     <main>
@@ -525,10 +575,10 @@
                 </p>
             </div>
             <!-- Remove excessive padding here -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+            <div class="grid  grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 <!-- Calendar Section -->
                 <div
-                    class="bg-white/30 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 flex flex-col justify-between mb-6 lg:mb-0">
+                    class="bg-gold/30 backdrop-blur-sm rounded-xl shadow-xl p-4 sm:p-6 flex flex-col justify-between mb-6 lg:mb-0">
                     <h3 class="text-xl sm:text-2xl font-heading font-bold text-gold mb-4 text-center">Select Date
                     </h3>
                     <!-- Calendar navigation and grid here -->
@@ -651,7 +701,7 @@
 
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 text-center">
-            <p class="mb-4">© 2023 Delight Captures. All rights reserved.</p>
+            <p class="mb-4">© 2025 Delight Captures. All rights reserved.</p>
             <p class="text-sm">Designed with ❤️ by Hema Kattumenu</p>
         </div>
     </footer>
@@ -778,7 +828,7 @@
                 for (let day = 1; day <= daysInMonth; day++) {
                     const dayDate = new Date(year, month, day);
                     const dayDiv = document.createElement('div');
-                    dayDiv.className = 'calendar-day bg-gold bg-opacity-60 hover:bg-gray-200 rounded-lg text-center py-3 cursor-pointer border border-dark';
+                    dayDiv.className = 'calendar-day bg bg-gray-100 bg-opacity-70 hover:bg-gray-200 rounded-lg text-center py-3 cursor-pointer border border-dark';
                     // Disable past dates
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
